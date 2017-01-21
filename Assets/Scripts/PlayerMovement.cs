@@ -24,6 +24,9 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject bat1;
 	public GameObject bat0;
 
+	public GameObject hitFeedback;
+	private SpriteRenderer hfRenderer;
+
 	public GameObject markerDot;
 	public float dotFrequency;
 
@@ -46,6 +49,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	private bool canShoot = true;
 
+	private bool shouldFadeIn = false;
+	private bool shouldFadeOut = false;
+	private float fadeInProgress = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -53,6 +59,8 @@ public class PlayerMovement : MonoBehaviour {
 		axis = transform.up;
 		frequency = startingFrequency;
 		magnitude = startingMagnitude;
+
+		hfRenderer = hitFeedback.GetComponent<SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
@@ -112,6 +120,39 @@ public class PlayerMovement : MonoBehaviour {
 		Instantiate (markerDot, transform.position, transform.rotation);
 		//dotCounter = 0f;
 
+		checkFadeInOut ();
+	}
+		
+	void checkFadeInOut() {
+		if (!shouldFadeIn && !shouldFadeOut)
+			return;
+		
+		if (shouldFadeIn && fadeInProgress < 1f) {
+			fadeInProgress += 3f * Time.deltaTime;
+			FadeInHit (fadeInProgress);
+		}
+
+		if (fadeInProgress >= 1f) {
+			shouldFadeIn = false;
+			shouldFadeOut = true;
+		}
+
+		if (shouldFadeOut && (fadeInProgress - 3f * Time.deltaTime) > 0f) {
+			fadeInProgress -= 3f * Time.deltaTime;
+			FadeOutHit (fadeInProgress);
+		} else if (shouldFadeOut) {
+			fadeInProgress = 0f;
+			FadeOutHit (fadeInProgress);
+		}
+
+		if (fadeInProgress <= 0f) {
+			shouldFadeOut = false;
+			shouldFadeIn = false;
+
+			hitFeedback.SetActive (false);
+		}
+
+		Debug.Log ("fadeinprogress = " + fadeInProgress);
 	}
 
 	//Funcion que calcula la nueva fase tras el cambio de frecuencia
@@ -122,8 +163,10 @@ public class PlayerMovement : MonoBehaviour {
 		startingFrequency = frequency;
 	}
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.tag == "Enemy")
-			EnemyTouch(other);
+		if (other.tag == "Enemy") {
+			EnemyTouch (other);
+			shouldFadeIn = true;
+		}
 		if (other.tag == "PowerUp")
 			PowerUpTouch (other);
 	}
@@ -146,7 +189,30 @@ public class PlayerMovement : MonoBehaviour {
 			break;
 		}
 
+		Color c = hfRenderer.color;
+		c.a = 0f;
+
+		hfRenderer.color = c;
+
+		hitFeedback.SetActive (true);
+
 		Destroy(other.gameObject);
+	}
+
+	void FadeInHit(float progress) {
+		Color color = hfRenderer.color;
+		color.a = Mathf.Lerp (0f, 1f, progress);
+		hfRenderer.color = color;
+
+		Debug.Log ("fadeinhit");
+	}
+
+	void FadeOutHit(float progress) {
+		Color color = hfRenderer.color;
+		color.a = Mathf.Lerp (1f, 0f, progress);
+		hfRenderer.color = color;
+
+		Debug.Log ("fadeouthit");
 	}
 
 	void PowerUpTouch(Collider2D other){
