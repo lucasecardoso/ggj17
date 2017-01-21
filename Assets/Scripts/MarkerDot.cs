@@ -22,7 +22,6 @@ public class MarkerDot : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log ("collision");
 		if (other.tag == "DeathZone")
 			Destroy (gameObject);
 	}

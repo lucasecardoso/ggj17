@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private float dotCounter;
 
-	public Text text;
+	//public Text text;
 
 	private Vector2 axis;
 	private Vector2 pos;
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour {
 		v2.y = Mathf.Sin(Time.time * startingFrequency + phase) * magnitude;
 		transform.position = v2;
 
-		text.text = "Position: " + transform.position.x + ", " + transform.position.y;
+		//text.text = "Position: " + transform.position.x + ", " + transform.position.y;
 
 		Instantiate (markerDot, transform.position, transform.rotation);
 		//dotCounter = 0f;

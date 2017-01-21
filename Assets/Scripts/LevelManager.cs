@@ -5,8 +5,9 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour {
 
 	public GameObject player;
-	public GameObject spawnPoint1;
+	//public GameObject spawnPoint1;
 	public GameObject enemy;
+	public GameObject[] spawnPoints;
 
 	public float spawnTimer = 2f;
 
@@ -23,7 +24,8 @@ public class LevelManager : MonoBehaviour {
 		counter += 1f * Time.deltaTime;
 
 		if (counter > spawnTimer) {
-			Instantiate (enemy, spawnPoint1.transform.position, spawnPoint1.transform.rotation);
+			int index = Random.Range (0, 3);
+			Instantiate (enemy, spawnPoints[index].transform.position, spawnPoints[index].transform.rotation);
 			counter = 0f;
 		}
 	}
