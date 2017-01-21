@@ -41,14 +41,21 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
+		//Input de + frecuencia
 		if (Input.GetKeyUp(KeyCode.W)) {
 			frequency += frequencyModValue;
 		}
 
+		//Input de - frecuencia
 		if (Input.GetKeyUp(KeyCode.S)) {
 			frequency -= frequencyModValue;
 		}
 
+		//Tenemos que detectar cuando el jugador disminuye la magnitud,
+		//pero no podemos cambiarlo automaticamente porque se ve feo
+		//Si el usuario pidio disminuir la amplitud, almacenamos ese evento
+		//y esperamos a estar dentro del rango de Y para realizar el cambio
 		if (Input.GetKeyUp(KeyCode.UpArrow) && plusMagnitude == false) {
 			plusMagnitude = true;
 		}
@@ -57,16 +64,17 @@ public class PlayerMovement : MonoBehaviour {
 			minusMagnitude = true;
 		}
 
+		//Si pedimos una nueva frecuencia, tenemos que calcular la fase nueva
 		if (frequency != startingFrequency) {
 			CalculateNewFrequency();
 		}
 
-		if (plusMagnitude && transform.position.y < 0.5 && transform.position.y > -0.5) {
+		if (plusMagnitude && transform.position.y < 0.2 && transform.position.y > -0.2) {
 			magnitude += magnitudeModValue;
 			plusMagnitude = false;
 		}
 
-		if (minusMagnitude && transform.position.y < 0.5 && transform.position.y > -0.5) {
+		if (minusMagnitude && transform.position.y < 0.2 && transform.position.y > -0.2) {
 			magnitude -= magnitudeModValue;
 			minusMagnitude = false;
 		}
@@ -87,6 +95,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	}
 
+	//Funcion que calcula la nueva fase tras el cambio de frecuencia
 	void CalculateNewFrequency() {
 		float curr = (Time.time * startingFrequency + phase) % (2.0f * Mathf.PI);
 		float next = (Time.time * frequency) % (2.0f * Mathf.PI);
@@ -94,7 +103,4 @@ public class PlayerMovement : MonoBehaviour {
 		startingFrequency = frequency;
 	}
 
-	void CalculateNewMagnitude() {
-		
-	}
 }

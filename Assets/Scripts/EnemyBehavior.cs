@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MarkerDot : MonoBehaviour {
-
-	public float timeToLive = 2f;
-
-	private float counter = 0f;
+public class EnemyBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -14,11 +10,8 @@ public class MarkerDot : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-		counter += 1f * Time.deltaTime;
-
-		if (counter > timeToLive)
-			Destroy (gameObject);
+	void Update () {
+		
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
@@ -26,4 +19,5 @@ public class MarkerDot : MonoBehaviour {
 		if (other.tag == "DeathZone")
 			Destroy (gameObject);
 	}
+
 }
