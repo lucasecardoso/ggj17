@@ -18,5 +18,6 @@ public class EnemyBehavior : MonoBehaviour {
 		if (other.tag == "DeathZone")
 			Destroy (gameObject);
 	}
+		
 
 }

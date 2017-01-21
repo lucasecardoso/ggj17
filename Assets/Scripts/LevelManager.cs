@@ -7,7 +7,10 @@ public class LevelManager : MonoBehaviour {
 	public GameObject player;
 	//public GameObject spawnPoint1;
 	public GameObject enemy;
+	public GameObject shooterEnemy;
+	public GameObject powerUp;
 	public GameObject[] spawnPoints;
+	int lastRandomIndex = 5;
 
 	public float spawnTimer = 2f;
 
@@ -24,8 +27,28 @@ public class LevelManager : MonoBehaviour {
 		counter += 1f * Time.deltaTime;
 
 		if (counter > spawnTimer) {
+			
 			int index = Random.Range (0, 3);
-			Instantiate (enemy, spawnPoints[index].transform.position, spawnPoints[index].transform.rotation);
+
+			while (index == lastRandomIndex) {
+				index = Random.Range (0, 3);
+			}
+
+			lastRandomIndex = index;
+
+			int spawn = Random.Range (0, 10);
+			switch(spawn){
+			case 1:
+				Instantiate (powerUp, spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
+				break;
+			default:
+				if (index == 2) {
+					Instantiate (shooterEnemy, spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
+				} else {
+					Instantiate (enemy, spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
+				}
+				break;
+			}
 			counter = 0f;
 		}
 	}

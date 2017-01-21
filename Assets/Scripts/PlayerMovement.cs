@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+	public int life;
 	public float moveSpeed = 2.0f;
 
 	public float startingFrequency = 5.0f;
@@ -17,6 +18,11 @@ public class PlayerMovement : MonoBehaviour {
 	public float minFrequency = 2f;
 	public float maxMagnitude = 8f;
 	public float minMagnitude = 2f;
+
+	public GameObject bat3;
+	public GameObject bat2;
+	public GameObject bat1;
+	public GameObject bat0;
 
 	public GameObject markerDot;
 	public float dotFrequency;
@@ -114,5 +120,38 @@ public class PlayerMovement : MonoBehaviour {
 		float next = (Time.time * frequency) % (2.0f * Mathf.PI);
 		phase = curr - next;
 		startingFrequency = frequency;
+	}
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.tag == "Enemy")
+			EnemyTouch(other);
+		if (other.tag == "PowerUp")
+			PowerUpTouch (other);
+	}
+
+	void EnemyTouch(Collider2D other){
+		life -= 1;
+		switch (life) {
+		case 2:
+			bat3.SetActive (false);
+			bat2.SetActive (true);
+			break;
+		case 1:
+			bat2.SetActive (false);
+			bat1.SetActive (true);
+			break;
+		case 0:
+			bat1.SetActive (false);
+			bat0.SetActive (true);
+			Time.timeScale = 0;
+			break;
+		}
+
+		Destroy(other.gameObject);
+	}
+
+	void PowerUpTouch(Collider2D other){
+		Debug.Log ("PowerUpTouch");
+
+		Destroy (other.gameObject);
 	}
 }
