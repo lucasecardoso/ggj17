@@ -287,6 +287,8 @@ MonoBehaviour:
   startingMagnitude: 5
   frequencyModValue: 1
   magnitudeModValue: 1
+  markerDot: {fileID: 1720048498145608, guid: 384f2ad4245849941a20a4e25bfcb146, type: 2}
+  dotFrequency: 0
   text: {fileID: 1027224254}
 --- !u!95 &1002119244
 Animator:

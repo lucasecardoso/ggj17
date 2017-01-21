@@ -13,6 +13,11 @@ public class PlayerMovement : MonoBehaviour {
 	public float frequencyModValue = 1.0f;
 	public float magnitudeModValue = 1.0f;
 
+	public GameObject markerDot;
+	public float dotFrequency;
+
+	private float dotCounter;
+
 	public Text text;
 
 	private Vector2 axis;
@@ -35,7 +40,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (Input.GetKeyUp(KeyCode.W)) {
 			frequency += frequencyModValue;
 		}
@@ -73,6 +78,13 @@ public class PlayerMovement : MonoBehaviour {
 		transform.position = v2;
 
 		text.text = "Position: " + transform.position.x + ", " + transform.position.y;
+
+		dotCounter += 1f * Time.deltaTime;
+
+		if (dotCounter > dotFrequency) {
+			Instantiate (markerDot, transform.position, transform.rotation);
+		}
+
 	}
 
 	void CalculateNewFrequency() {
