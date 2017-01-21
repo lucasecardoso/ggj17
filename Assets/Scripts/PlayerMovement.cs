@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject markerDot;
 	public float dotFrequency;
 
+	public GameObject bullet;
+	public float bulletSpeed = 1000f;
+
 	private float dotCounter;
 
 	//public Text text;
@@ -35,6 +38,8 @@ public class PlayerMovement : MonoBehaviour {
 	private bool plusMagnitude;
 	private bool minusMagnitude;
 
+	private bool canShoot = true;
+
 
 	// Use this for initialization
 	void Start () {
@@ -46,6 +51,13 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		//Input de disparo
+		if (Input.GetButtonDown("Fire1") && canShoot) {
+			GameObject b = (GameObject)Instantiate (bullet, transform.position, transform.rotation);
+			Rigidbody2D rb = b.GetComponent<Rigidbody2D> ();
+			rb.AddForce(b.transform.right * bulletSpeed);
+			canShoot = false;
+		}
 
 		//Input de + frecuencia
 		if (Input.GetKeyUp(KeyCode.W) && frequency < maxFrequency) {
@@ -56,7 +68,6 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetKeyUp(KeyCode.S) && frequency > minFrequency) {
 			frequency -= frequencyModValue;
 		}
-
 		//Tenemos que detectar cuando el jugador disminuye la magnitud,
 		//pero no podemos cambiarlo automaticamente porque se ve feo
 		//Si el usuario pidio disminuir la amplitud, almacenamos ese evento
@@ -104,5 +115,4 @@ public class PlayerMovement : MonoBehaviour {
 		phase = curr - next;
 		startingFrequency = frequency;
 	}
-
 }
