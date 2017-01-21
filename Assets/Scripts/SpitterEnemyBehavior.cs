@@ -31,7 +31,13 @@ public class SpitterEnemyBehavior : MonoBehaviour {
 	}
 
 	private void Shoot () {
-		GameObject b = (GameObject)Instantiate (bullet, transform.position, transform.rotation);
+		Vector3 spawn = new Vector3 (transform.position.x, transform.position.y + 1, transform.position.z);
+		GameObject b = (GameObject)Instantiate (bullet, spawn, transform.rotation);
 		b.GetComponent<Rigidbody2D> ().AddForce (b.transform.up * bulletThrust);
+	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.tag == "DeathZone" || other.tag == "Enemy")
+			Destroy (gameObject);
 	}
 }

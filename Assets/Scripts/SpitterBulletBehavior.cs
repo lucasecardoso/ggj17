@@ -25,4 +25,9 @@ public class SpitterBulletBehavior : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.tag == "ShooterEnemy")
+			Destroy (gameObject);
+	}
 }
