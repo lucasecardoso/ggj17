@@ -13,6 +13,11 @@ public class PlayerMovement : MonoBehaviour {
 	public float frequencyModValue = 1.0f;
 	public float magnitudeModValue = 1.0f;
 
+	public float maxFrequency = 8f;
+	public float minFrequency = 2f;
+	public float maxMagnitude = 8f;
+	public float minMagnitude = 2f;
+
 	public GameObject markerDot;
 	public float dotFrequency;
 
@@ -43,12 +48,12 @@ public class PlayerMovement : MonoBehaviour {
 	void FixedUpdate () {
 
 		//Input de + frecuencia
-		if (Input.GetKeyUp(KeyCode.W)) {
+		if (Input.GetKeyUp(KeyCode.W) && frequency < maxFrequency) {
 			frequency += frequencyModValue;
 		}
 
 		//Input de - frecuencia
-		if (Input.GetKeyUp(KeyCode.S)) {
+		if (Input.GetKeyUp(KeyCode.S) && frequency > minFrequency) {
 			frequency -= frequencyModValue;
 		}
 
@@ -56,11 +61,11 @@ public class PlayerMovement : MonoBehaviour {
 		//pero no podemos cambiarlo automaticamente porque se ve feo
 		//Si el usuario pidio disminuir la amplitud, almacenamos ese evento
 		//y esperamos a estar dentro del rango de Y para realizar el cambio
-		if (Input.GetKeyUp(KeyCode.UpArrow) && plusMagnitude == false) {
+		if (Input.GetKeyUp(KeyCode.UpArrow) && plusMagnitude == false && magnitude < maxMagnitude) {
 			plusMagnitude = true;
 		}
 
-		if (Input.GetKeyUp(KeyCode.DownArrow) && minusMagnitude == false) {
+		if (Input.GetKeyUp(KeyCode.DownArrow) && minusMagnitude == false && magnitude > minMagnitude) {
 			minusMagnitude = true;
 		}
 
@@ -87,11 +92,8 @@ public class PlayerMovement : MonoBehaviour {
 
 		text.text = "Position: " + transform.position.x + ", " + transform.position.y;
 
-		dotCounter += 1f * Time.deltaTime;
-
-		if (dotCounter > dotFrequency) {
-			Instantiate (markerDot, transform.position, transform.rotation);
-		}
+		Instantiate (markerDot, transform.position, transform.rotation);
+		//dotCounter = 0f;
 
 	}
 

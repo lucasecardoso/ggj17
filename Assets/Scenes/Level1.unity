@@ -284,11 +284,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1397561b94b8bf146a50887dcbfe897a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  startingFrequency: 5
-  startingMagnitude: 5
+  moveSpeed: 4
+  startingFrequency: 3
+  startingMagnitude: 2.5
   frequencyModValue: 1
   magnitudeModValue: 1
+  maxFrequency: 10
+  minFrequency: 2
+  maxMagnitude: 4.5
+  minMagnitude: 1
   markerDot: {fileID: 1720048498145608, guid: 384f2ad4245849941a20a4e25bfcb146, type: 2}
   dotFrequency: 0
   text: {fileID: 1027224254}
