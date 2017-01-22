@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour {
 
 	public GameObject player;
 	//public GameObject spawnPoint1;
-	public GameObject enemy;
+	public GameObject[] enemies;
 	public GameObject shooterEnemy;
 	public GameObject[] powerUps;
 	public GameObject[] spawnPoints;
@@ -34,7 +34,6 @@ public class LevelManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		Debug.Log("Boss is here: " + bossIsHere);
 
 		counter += 1f * Time.deltaTime;
 
@@ -77,10 +76,16 @@ public class LevelManager : MonoBehaviour {
 				if (bossIsHere) {
 					break;
 				}
+
+				int spawneableEnemy = Random.Range (0, enemies.Length);
 				if (index == 2) {
-					Instantiate (shooterEnemy, spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
+					if ((spawneableEnemy % 2) != 1) {
+						Instantiate (shooterEnemy, spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
+					} else {
+						Instantiate (enemies [spawneableEnemy], spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
+					}
 				} else {
-					Instantiate (enemy, spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
+					Instantiate (enemies[spawneableEnemy], spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
 				}
 				break;
 			}
