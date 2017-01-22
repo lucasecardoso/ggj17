@@ -33,6 +33,8 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject bullet;
 	public float bulletSpeed = 1000f;
 
+	//public IddleAnimation iddleAnimation;
+
 	private float dotCounter;
 
 	//public Text text;
@@ -55,6 +57,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private AudioSource[] audios;
 
+
 	// Use this for initialization
 	void Start () {
 		pos = transform.position;
@@ -62,41 +65,44 @@ public class PlayerMovement : MonoBehaviour {
 		frequency = startingFrequency;
 		magnitude = startingMagnitude;
 
+
 		audios = GetComponents<AudioSource>();
 
 		hfRenderer = hitFeedback.GetComponent<SpriteRenderer> ();
+		//iddleAnimation.iddlePlayer ();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		//Input de disparo
-		if (Input.GetButtonDown("Fire1") && canShoot) {
-			GameObject b = (GameObject)Instantiate (bullet, transform.position, transform.rotation);
+		if (Input.GetKeyDown(KeyCode.Space) && canShoot) {
+			Vector3 shootPoint = new Vector3 (transform.position.x + 1f, transform.position.y, transform.position.z);
+			GameObject b = (GameObject)Instantiate (bullet, shootPoint, transform.rotation);
 			Rigidbody2D rb = b.GetComponent<Rigidbody2D> ();
-			rb.AddForce(b.transform.right * bulletSpeed);
+			rb.AddForce (b.transform.right * bulletSpeed);
+			GetComponent<Animator> ().Play ("PlayerShoot");
 			canShoot = false;
-
-			audios[2].Play();
+			audios [2].Play ();
 		}
 
 		//Input de + frecuencia
-		if (Input.GetKeyUp(KeyCode.W) && frequency < maxFrequency) {
+		if (Input.GetKeyDown(KeyCode.W) && frequency < maxFrequency) {
 			frequency += frequencyModValue;
 		}
 
 		//Input de - frecuencia
-		if (Input.GetKeyUp(KeyCode.S) && frequency > minFrequency) {
+		if (Input.GetKeyDown(KeyCode.S) && frequency > minFrequency) {
 			frequency -= frequencyModValue;
 		}
 		//Tenemos que detectar cuando el jugador disminuye la magnitud,
 		//pero no podemos cambiarlo automaticamente porque se ve feo
 		//Si el usuario pidio disminuir la amplitud, almacenamos ese evento
 		//y esperamos a estar dentro del rango de Y para realizar el cambio
-		if (Input.GetKeyUp(KeyCode.UpArrow) && plusMagnitude == false && magnitude < maxMagnitude) {
+		if (Input.GetKeyDown(KeyCode.UpArrow) && plusMagnitude == false && magnitude < maxMagnitude) {
 			plusMagnitude = true;
 		}
 
-		if (Input.GetKeyUp(KeyCode.DownArrow) && minusMagnitude == false && magnitude > minMagnitude) {
+		if (Input.GetKeyDown(KeyCode.DownArrow) && minusMagnitude == false && magnitude > minMagnitude) {
 			minusMagnitude = true;
 		}
 
@@ -122,6 +128,7 @@ public class PlayerMovement : MonoBehaviour {
 		transform.position = v2;
 
 		//text.text = "Position: " + transform.position.x + ", " + transform.position.y;
+		//Vector3 dotExit = new Vector3 (transform.position.x - 0.6f, transform.position.y, transform.position.z);
 
 		Instantiate (markerDot, transform.position, transform.rotation);
 		//dotCounter = 0f;
@@ -224,10 +231,8 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void PowerUpTouch(Collider2D other){
-		Debug.Log ("PowerUpTouch");
-
+		canShoot = true;
 		audios[1].Play();
-
 		Destroy (other.gameObject);
 	}
 }

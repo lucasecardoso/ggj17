@@ -15,7 +15,7 @@ public class BulletBehavior : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.tag == "DeathBullet") {
+		if (other.tag == "BulletDeathZone") {
 			Destroy (gameObject);
 		}
 
