@@ -12,6 +12,9 @@ public class MenuBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		initialPosition = transform.position;
+		LevelManager.isGameOver = false;
+		LevelManager.timer = 0f;
+		LevelManager.bossIsHere = false;
 	}
 	
 	// Update is called once per frame

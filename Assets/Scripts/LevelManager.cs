@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
@@ -11,6 +12,11 @@ public class LevelManager : MonoBehaviour {
 	public GameObject[] powerUps;
 	public GameObject[] spawnPoints;
 	public GameObject boss;
+
+	public static bool isGameOver = false;
+
+	public TextMesh timerText;
+
 	int lastRandomIndex = 5;
 
 	public float spawnTimer = 2f;
@@ -27,13 +33,21 @@ public class LevelManager : MonoBehaviour {
 
 	private AudioSource audioSource;
 
+	public static float timer = 0f;
+
 	// Use this for initialization
 	void Start () {
-		audioSource = GetComponent<AudioSource>();
+		audioSource = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		if (isGameOver)
+			return;
+
+		timer += 13f * Time.deltaTime;
+
+		timerText.text = "" + Mathf.Round (timer);
 
 		counter += 1f * Time.deltaTime;
 

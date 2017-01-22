@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -28,6 +29,8 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject bat0;
 	public GameObject loadFull;
 	public GameObject loadEmpty;
+
+	public TextMesh scoreText;
 
 	public GameObject hitFeedback;
 	private SpriteRenderer hfRenderer;
@@ -62,6 +65,10 @@ public class PlayerMovement : MonoBehaviour {
 
 	private AudioSource[] audios;
 
+	private bool isGameOver = false;
+
+	private float gameOverTimer = 0f;
+
 
 	// Use this for initialization
 	void Start () {
@@ -79,6 +86,21 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		if (isGameOver) {
+			gameOverTimer += 1f * Time.deltaTime;
+			Debug.Log ("gameovertimer: " + gameOverTimer);
+		}
+
+		if (isGameOver && gameOverTimer > 5f) {
+			gameOverTimer = 0f;
+			isGameOver = false;
+			SceneManager.LoadScene ("Menu");
+		}
+
+		if (isGameOver)
+			return;
+
+
 		//Input de disparo
 		if (Input.GetKeyDown(KeyCode.Space) && canShoot) {
 			Vector3 shootPoint = new Vector3 (transform.position.x + 1f, transform.position.y, transform.position.z);
@@ -173,8 +195,6 @@ public class PlayerMovement : MonoBehaviour {
 
 			//hitFeedback.SetActive (false);
 		}
-
-		Debug.Log ("fadeinprogress = " + fadeInProgress);
 	}
 
 	//Funcion que calcula la nueva fase tras el cambio de frecuencia
@@ -216,7 +236,14 @@ public class PlayerMovement : MonoBehaviour {
 			rotura3.SetActive (true);
 			bat1.SetActive (false);
 			bat0.SetActive (true);
-			Time.timeScale = 0;
+			scoreText.text = "GAME OVER\nScore: " + Mathf.Round (LevelManager.timer);
+			scoreText.gameObject.SetActive (true);
+			//gameObject.SetActive (false);
+			SpriteRenderer sr = GetComponent<SpriteRenderer> ();
+			sr.enabled = false;
+			isGameOver = true;
+			LevelManager.isGameOver = true;
+
 			break;
 		}
 
