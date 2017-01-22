@@ -46,16 +46,38 @@ public class BossBehavior : MonoBehaviour {
 		}
 	}
 
+	public void DamageBoss() {
+		life -= 1;
+
+	}
+
 	void Shoot() {
-		Instantiate(projectile, transform.position, transform.rotation);
+		int yPosition = 0;
+
+		switch (life) {
+		case 3:
+			yPosition = 0;
+			break;
+		case 2:
+			yPosition = 3;
+			break;
+		case 1:
+			yPosition = -3;
+			break;
+		default:
+			yPosition = 0;
+			break;
+		}
+
+		Instantiate(projectile, new Vector2(transform.position.x, yPosition), transform.rotation);
 		canShoot = false;
 		reloadCounter = 0f;
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.tag == "Bullet") {
-			life -= 1;
-			Destroy(other.gameObject);
+			DamageBoss ();
+			Destroy (other.gameObject);
 		}
 	}
 

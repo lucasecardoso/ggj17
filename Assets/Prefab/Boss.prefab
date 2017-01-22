@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1507016480176690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.54, y: -0.68, z: 0}
+  m_LocalPosition: {x: 4.23, y: 0.05, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -88,11 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9eabd4dbaf43f42aae571ea893836c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1
+  life: 3
   projectile: {fileID: 1296857967537540, guid: 70c916de7baee284b8dc647fbb209b49, type: 2}
   shootReloadTime: 3
-  levelManager: {fileID: 114191506481741558, guid: 64444cfbc2d1ac94c997027e46303006,
-    type: 2}
 --- !u!212 &212124961601890470
 SpriteRenderer:
   m_ObjectHideFlags: 1

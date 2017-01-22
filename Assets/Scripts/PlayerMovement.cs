@@ -248,6 +248,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void HealthPickupTouch(Collider2D other) {
 		audios [1].Play ();
+		Destroy (other.gameObject);
 
 		if (life == 3)
 			return;
@@ -269,6 +270,5 @@ public class PlayerMovement : MonoBehaviour {
 			break;
 		}
 
-		Destroy (other.gameObject);
 	}
 }
