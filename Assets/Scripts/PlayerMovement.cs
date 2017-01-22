@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject bat2;
 	public GameObject bat1;
 	public GameObject bat0;
+	public GameObject loadFull;
+	public GameObject loadEmpty;
 
 	public GameObject hitFeedback;
 	private SpriteRenderer hfRenderer;
@@ -85,7 +87,8 @@ public class PlayerMovement : MonoBehaviour {
 			rb.AddForce (b.transform.right * bulletSpeed);
 			GetComponent<Animator> ().Play ("PlayerShoot");
 
-			//cambiar sprite de carga por uno vacio
+			loadFull.SetActive (false);
+			loadEmpty.SetActive (true);
 
 			canShoot = false;
 			audios [2].Play ();
@@ -240,7 +243,8 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void PowerUpTouch(Collider2D other){
-		//Cambiar sprite de reload por uno lleno
+		loadEmpty.SetActive (false);
+		loadFull.SetActive (true);
 		canShoot = true;
 		audios[1].Play();
 		Destroy (other.gameObject);

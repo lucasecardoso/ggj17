@@ -16,7 +16,7 @@ public class MenuBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.DownArrow) && currentPos < 2) {
+		if (Input.GetKeyDown (KeyCode.DownArrow) && currentPos < 3) {
 			currentPos++;
 		}
 
@@ -35,6 +35,9 @@ public class MenuBehavior : MonoBehaviour {
 				SceneManager.LoadScene ("Tutorial");
 				break;
 			case 2:
+				SceneManager.LoadScene ("Credits");
+				break;
+			case 3:
 				Application.Quit ();
 				break;
 			}
