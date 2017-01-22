@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour {
 			return;
 		
 		if (shouldFadeIn && fadeInProgress < 1f) {
-			fadeInProgress += 3f * Time.deltaTime;
+			fadeInProgress += 4f * Time.deltaTime;
 			FadeInHit (fadeInProgress);
 		}
 
@@ -137,8 +137,8 @@ public class PlayerMovement : MonoBehaviour {
 			shouldFadeOut = true;
 		}
 
-		if (shouldFadeOut && (fadeInProgress - 3f * Time.deltaTime) > 0f) {
-			fadeInProgress -= 3f * Time.deltaTime;
+		if (shouldFadeOut && (fadeInProgress - 4f * Time.deltaTime) > 0f) {
+			fadeInProgress -= 4f * Time.deltaTime;
 			FadeOutHit (fadeInProgress);
 		} else if (shouldFadeOut) {
 			fadeInProgress = 0f;
@@ -149,7 +149,7 @@ public class PlayerMovement : MonoBehaviour {
 			shouldFadeOut = false;
 			shouldFadeIn = false;
 
-			hitFeedback.SetActive (false);
+			//hitFeedback.SetActive (false);
 		}
 
 		Debug.Log ("fadeinprogress = " + fadeInProgress);
@@ -209,7 +209,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void FadeOutHit(float progress) {
 		Color color = hfRenderer.color;
-		color.a = Mathf.Lerp (1f, 0f, progress);
+		color.a = Mathf.Lerp (0f, 1f, progress);
 		hfRenderer.color = color;
 
 		Debug.Log ("fadeouthit");
