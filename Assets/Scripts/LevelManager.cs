@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour {
 	//public GameObject spawnPoint1;
 	public GameObject enemy;
 	public GameObject shooterEnemy;
-	public GameObject powerUp;
+	public GameObject[] powerUps;
 	public GameObject[] spawnPoints;
 	public GameObject boss;
 	int lastRandomIndex = 5;
@@ -67,7 +67,10 @@ public class LevelManager : MonoBehaviour {
 			int spawn = Random.Range (0, 10);
 			switch(spawn){
 			case 1:
-				Instantiate (powerUp, spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
+				Instantiate (powerUps[0], spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
+				break;
+			case 2:
+				Instantiate (powerUps [1], spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
 				break;
 			default:
 				//Si el boss esta, solamente instanciamos powerups

@@ -185,6 +185,8 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		if (other.tag == "PowerUp")
 			PowerUpTouch (other);
+		if (other.tag == "HealthPickup")
+			HealthPickupTouch (other);
 	}
 
 	void EnemyTouch(Collider2D other){
@@ -241,6 +243,32 @@ public class PlayerMovement : MonoBehaviour {
 	void PowerUpTouch(Collider2D other){
 		canShoot = true;
 		audios[1].Play();
+		Destroy (other.gameObject);
+	}
+
+	void HealthPickupTouch(Collider2D other) {
+		audios [1].Play ();
+
+		if (life == 3)
+			return;
+		
+		life += 1;
+		switch (life) {
+		case 3:
+			rotura1.SetActive (false);
+			bat2.SetActive (false);
+			bat3.SetActive (true);
+			break;
+		case 2:
+			rotura2.SetActive (false);
+			rotura1.SetActive (true);
+			bat1.SetActive (false);
+			bat2.SetActive (true);
+			break;
+		default:
+			break;
+		}
+
 		Destroy (other.gameObject);
 	}
 }
