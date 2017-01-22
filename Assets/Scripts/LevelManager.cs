@@ -16,15 +16,21 @@ public class LevelManager : MonoBehaviour {
 
 	private float counter = 0f;
 
+	private float audioCounter = 0f;
+
+	private AudioSource audio;
+
 	// Use this for initialization
 	void Start () {
-		
+		audio = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 
 		counter += 1f * Time.deltaTime;
+
+		audioCounter += 1f * Time.deltaTime;
 
 		if (counter > spawnTimer) {
 			
@@ -50,6 +56,11 @@ public class LevelManager : MonoBehaviour {
 				break;
 			}
 			counter = 0f;
+		}
+
+		if (audioCounter > 1f) {
+			audio.Play();
+			audioCounter = 0f;
 		}
 	}
 }

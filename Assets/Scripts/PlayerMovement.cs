@@ -53,12 +53,16 @@ public class PlayerMovement : MonoBehaviour {
 	private bool shouldFadeOut = false;
 	private float fadeInProgress = 0f;
 
+	private AudioSource[] audios;
+
 	// Use this for initialization
 	void Start () {
 		pos = transform.position;
 		axis = transform.up;
 		frequency = startingFrequency;
 		magnitude = startingMagnitude;
+
+		audios = GetComponents<AudioSource>();
 
 		hfRenderer = hitFeedback.GetComponent<SpriteRenderer> ();
 	}
@@ -71,6 +75,8 @@ public class PlayerMovement : MonoBehaviour {
 			Rigidbody2D rb = b.GetComponent<Rigidbody2D> ();
 			rb.AddForce(b.transform.right * bulletSpeed);
 			canShoot = false;
+
+			audios[2].Play();
 		}
 
 		//Input de + frecuencia
@@ -172,6 +178,8 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void EnemyTouch(Collider2D other){
+		audios[0].Play();
+
 		life -= 1;
 		switch (life) {
 		case 2:
@@ -217,6 +225,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	void PowerUpTouch(Collider2D other){
 		Debug.Log ("PowerUpTouch");
+
+		audios[1].Play();
 
 		Destroy (other.gameObject);
 	}
