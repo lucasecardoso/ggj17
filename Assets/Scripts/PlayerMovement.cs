@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour {
 	public float maxMagnitude = 8f;
 	public float minMagnitude = 2f;
 
+	public GameObject rotura1;
+	public GameObject rotura2;
+	public GameObject rotura3;
 	public GameObject bat3;
 	public GameObject bat2;
 	public GameObject bat1;
@@ -190,14 +193,19 @@ public class PlayerMovement : MonoBehaviour {
 		life -= 1;
 		switch (life) {
 		case 2:
+			rotura1.SetActive (true);
 			bat3.SetActive (false);
 			bat2.SetActive (true);
 			break;
 		case 1:
+			rotura1.SetActive (false);
+			rotura2.SetActive (true);
 			bat2.SetActive (false);
 			bat1.SetActive (true);
 			break;
 		case 0:
+			rotura2.SetActive (false);
+			rotura3.SetActive (true);
 			bat1.SetActive (false);
 			bat0.SetActive (true);
 			Time.timeScale = 0;
