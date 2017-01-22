@@ -10,27 +10,48 @@ public class LevelManager : MonoBehaviour {
 	public GameObject shooterEnemy;
 	public GameObject powerUp;
 	public GameObject[] spawnPoints;
+	public GameObject boss;
 	int lastRandomIndex = 5;
 
 	public float spawnTimer = 2f;
+
+	public float bossTimer = 20f;
 
 	private float counter = 0f;
 
 	private float audioCounter = 0f;
 
-	private AudioSource audio;
+	private bool bossIsHere = false;
+
+	private float bossCounter = 0f;
+
+	private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
-		audio = GetComponent<AudioSource>();
+		audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
+		
 		counter += 1f * Time.deltaTime;
 
+		//Contamos el tiempo del boss si el boss no esta
+		if (!bossIsHere)
+			bossCounter += 1f * Time.deltaTime;
+
 		audioCounter += 1f * Time.deltaTime;
+
+		//Instanciamos el boss en caso de que el timer pase del limite
+		if (bossCounter > bossTimer) {
+			bossIsHere = true;
+			GameObject b = (GameObject)Instantiate(boss, spawnPoints[1].transform.position, spawnPoints[1].transform.rotation);
+
+			//Lo asignamos como hijo del spawnPoint asi se mueve en relacion a la pantalla
+			b.transform.parent = spawnPoints[1].transform;
+			bossCounter = 0f;
+		}
 
 		if (counter > spawnTimer) {
 			
@@ -48,6 +69,10 @@ public class LevelManager : MonoBehaviour {
 				Instantiate (powerUp, spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
 				break;
 			default:
+				//Si el boss esta, solamente instanciamos powerups
+				if (bossIsHere) {
+					break;
+				}
 				if (index == 2) {
 					Instantiate (shooterEnemy, spawnPoints [index].transform.position, spawnPoints [index].transform.rotation);
 				} else {
@@ -59,9 +84,14 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		if (audioCounter > 1f) {
-			audio.Play();
+			audioSource.Play();
 			audioCounter = 0f;
 		}
+	}
+
+	//Con esto determinamos que el boss se murio
+	public void bossIsDead() {
+		bossIsHere = false;
 	}
 }
 
