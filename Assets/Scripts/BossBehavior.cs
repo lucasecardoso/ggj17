@@ -8,7 +8,7 @@ public class BossBehavior : MonoBehaviour {
 
 	private Vector3 initialPosition;
 
-	public int life = 3;
+	public int life = 1;
 
 	public GameObject projectile;
 
@@ -38,6 +38,12 @@ public class BossBehavior : MonoBehaviour {
 
 		if (reloadCounter > shootReloadTime) 
 			canShoot = true;
+
+
+		if (life <= 0) {
+			Destroy(gameObject);
+			LevelManager.bossIsHere = false;
+		}
 	}
 
 	void Shoot() {
@@ -45,4 +51,12 @@ public class BossBehavior : MonoBehaviour {
 		canShoot = false;
 		reloadCounter = 0f;
 	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.tag == "Bullet") {
+			life -= 1;
+			Destroy(other.gameObject);
+		}
+	}
+
 }

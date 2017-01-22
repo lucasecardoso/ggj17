@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour {
 
 	private float audioCounter = 0f;
 
-	private bool bossIsHere = false;
+	public static bool bossIsHere = false;
 
 	private float bossCounter = 0f;
 
@@ -34,7 +34,8 @@ public class LevelManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		
+		Debug.Log("Boss is here: " + bossIsHere);
+
 		counter += 1f * Time.deltaTime;
 
 		//Contamos el tiempo del boss si el boss no esta
@@ -87,11 +88,6 @@ public class LevelManager : MonoBehaviour {
 			audioSource.Play();
 			audioCounter = 0f;
 		}
-	}
-
-	//Con esto determinamos que el boss se murio
-	public void bossIsDead() {
-		bossIsHere = false;
 	}
 }
 
