@@ -84,6 +84,9 @@ public class PlayerMovement : MonoBehaviour {
 			Rigidbody2D rb = b.GetComponent<Rigidbody2D> ();
 			rb.AddForce (b.transform.right * bulletSpeed);
 			GetComponent<Animator> ().Play ("PlayerShoot");
+
+			//cambiar sprite de carga por uno vacio
+
 			canShoot = false;
 			audios [2].Play ();
 		}
@@ -228,19 +231,16 @@ public class PlayerMovement : MonoBehaviour {
 		Color color = hfRenderer.color;
 		color.a = Mathf.Lerp (0f, 1f, progress);
 		hfRenderer.color = color;
-
-		Debug.Log ("fadeinhit");
 	}
 
 	void FadeOutHit(float progress) {
 		Color color = hfRenderer.color;
 		color.a = Mathf.Lerp (0f, 1f, progress);
 		hfRenderer.color = color;
-
-		Debug.Log ("fadeouthit");
 	}
 
 	void PowerUpTouch(Collider2D other){
+		//Cambiar sprite de reload por uno lleno
 		canShoot = true;
 		audios[1].Play();
 		Destroy (other.gameObject);
