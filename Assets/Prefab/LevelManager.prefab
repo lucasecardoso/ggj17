@@ -133,7 +133,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  enemy: {fileID: 1392362058343806, guid: b9545d8bce1361d41948a3036028d851, type: 2}
+  enemies:
+  - {fileID: 1392362058343806, guid: b9545d8bce1361d41948a3036028d851, type: 2}
+  - {fileID: 1636514083201882, guid: 384a3f134cf335947b32760ecbc58036, type: 2}
+  - {fileID: 1217494050423540, guid: 8deaba483d8589f4d99f8b099380a0a0, type: 2}
   shooterEnemy: {fileID: 1021326612279426, guid: f705256134a18444ab3606b3061871bf,
     type: 2}
   powerUps:
@@ -144,5 +147,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   boss: {fileID: 1507016480176690, guid: daf9f6b09b245af4bb49b0c389fccd8a, type: 2}
+  timerText: {fileID: 0}
   spawnTimer: 2
-  bossTimer: 5
+  bossTimer: 20

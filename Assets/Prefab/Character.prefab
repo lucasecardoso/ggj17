@@ -413,6 +413,7 @@ MonoBehaviour:
   bat0: {fileID: 0}
   loadFull: {fileID: 0}
   loadEmpty: {fileID: 0}
+  gameOverText: {fileID: 0}
   hitFeedback: {fileID: 0}
   markerDot: {fileID: 1720048498145608, guid: 384f2ad4245849941a20a4e25bfcb146, type: 2}
   dotFrequency: 0

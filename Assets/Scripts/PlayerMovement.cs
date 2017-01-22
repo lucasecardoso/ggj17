@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject loadFull;
 	public GameObject loadEmpty;
 
-	public TextMesh scoreText;
+	public TextMesh gameOverText;
 
 	public GameObject hitFeedback;
 	private SpriteRenderer hfRenderer;
@@ -236,8 +236,8 @@ public class PlayerMovement : MonoBehaviour {
 			rotura3.SetActive (true);
 			bat1.SetActive (false);
 			bat0.SetActive (true);
-			scoreText.text = "GAME OVER\nScore: " + Mathf.Round (LevelManager.timer);
-			scoreText.gameObject.SetActive (true);
+			gameOverText.text = "GAME OVER\nScore: " + Mathf.Round (LevelManager.timer);
+			gameOverText.gameObject.SetActive (true);
 			//gameObject.SetActive (false);
 			SpriteRenderer sr = GetComponent<SpriteRenderer> ();
 			sr.enabled = false;
