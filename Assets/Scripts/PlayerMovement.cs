@@ -95,23 +95,23 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		//Input de + frecuencia
-		if (Input.GetKeyDown(KeyCode.W) && frequency < maxFrequency) {
+		if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && frequency < maxFrequency) {
 			frequency += frequencyModValue;
 		}
 
 		//Input de - frecuencia
-		if (Input.GetKeyDown(KeyCode.S) && frequency > minFrequency) {
+		if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.RightArrow)) && frequency > minFrequency) {
 			frequency -= frequencyModValue;
 		}
 		//Tenemos que detectar cuando el jugador disminuye la magnitud,
 		//pero no podemos cambiarlo automaticamente porque se ve feo
 		//Si el usuario pidio disminuir la amplitud, almacenamos ese evento
 		//y esperamos a estar dentro del rango de Y para realizar el cambio
-		if (Input.GetKeyDown(KeyCode.UpArrow) && plusMagnitude == false && magnitude < maxMagnitude) {
+			if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && plusMagnitude == false && magnitude < maxMagnitude) {
 			plusMagnitude = true;
 		}
 
-		if (Input.GetKeyDown(KeyCode.DownArrow) && minusMagnitude == false && magnitude > minMagnitude) {
+			if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && minusMagnitude == false && magnitude > minMagnitude) {
 			minusMagnitude = true;
 		}
 
