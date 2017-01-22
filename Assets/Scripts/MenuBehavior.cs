@@ -32,7 +32,7 @@ public class MenuBehavior : MonoBehaviour {
 				SceneManager.LoadScene ("Level1");
 				break;
 			case 1:
-				//LoadTutorial
+				SceneManager.LoadScene ("Tutorial");
 				break;
 			case 2:
 				Application.Quit ();
